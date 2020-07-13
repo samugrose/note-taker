@@ -18,7 +18,7 @@ class dbFunction{
 
     async writeNotes(noteArr){
         try{
-        await writeFileAsync(jsonDb, JSON.stringify(noteArr), "utf8")
+        await writeFileAsync(jsond, JSON.stringify(noteArr), "utf8")
         } catch(e) {
         console.log("error: ", e)
         }
