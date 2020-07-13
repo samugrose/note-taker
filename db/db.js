@@ -15,3 +15,15 @@ class dbFunction{
         console.log("Can't read file", err)
         }
     }
+
+    async writeNotes(noteArr){
+        try{
+        await writeFileAsync(jsonDb, JSON.stringify(noteArr), "utf8")
+        } catch(e) {
+        console.log("error: ", e)
+        }
+    }
+ }
+
+ //one class instance needed
+ module.exports = new dbFunction();
