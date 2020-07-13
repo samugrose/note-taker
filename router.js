@@ -4,8 +4,8 @@ const db = require("./db/db");
 var router = express.Router();
 
 router.get("/notes", async function(req,res){
-    const freshNotes = await db.readNotes();
-    res.json(freshNotes);
+    const newestNotes = await db.readNotes();
+    res.json(newestNotes);
 });
 
 //  post method
@@ -17,3 +17,15 @@ router.post('/notes', async function(req,res) {
     const freshlyWrittenNotes = await db.writeNotes([...retrievedNotes, newNote]);
     res.json(newNote);
 })
+
+router.delete('/notes/:id', async function(req,res){
+    let myId = req.params.id;
+    const retrievedNotes = await db.readNotes();
+    const toDelete = retrievedNotes.findIndex(note => note.id === myId);
+    retrievedNotes.splice(toDelete, 1);
+    await db.writeNotes(retrievedNotes);
+   
+    res.json(`deleted note :${myId}`) 
+});
+
+module.exports = router;
